@@ -125,11 +125,13 @@
         }
 
         function TokenSetter(value) {
-            return localStorage.setItem('accessToken', value);
+            
+            
+            return Cookies.set('accessToken', value);
         }
 
         function TokenGetter() {
-            return localStorage.getItem('accessToken');
+            return Cookies.get('accessToken');
         }
 
         //產生Authorize Bear 格式

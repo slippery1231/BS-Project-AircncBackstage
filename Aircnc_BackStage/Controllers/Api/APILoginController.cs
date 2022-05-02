@@ -39,7 +39,10 @@ namespace Aircnc_BackStage.Controllers.Api
         [HttpGet]
         public IActionResult Test()
         {
-            return Ok("通過");
+          
+                return Ok("通過");
+           
         }
+
     }
 }
