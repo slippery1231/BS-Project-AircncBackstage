@@ -8,6 +8,7 @@ namespace Aircnc_BackStage.Controllers.Aircnc
 {
     public class AccountController : Controller
     {
+
         public IActionResult Home()
         {
 

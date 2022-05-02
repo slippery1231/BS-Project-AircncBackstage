@@ -30,7 +30,7 @@
                                                 {{inputDataCheck.password.errorMsg}}
                                             </div>
                                         </div>
-                                        <button class="btn btn-primary btn-user btn-block" :disabled="isbusy"
+                                        <button class="btn btn-primary btn-user btn-block" :disabled="checkInput"
                                                 v-on:click="loginHandler">
                                             Login
                                         </button>
@@ -59,21 +59,21 @@
                     username: { error: true, errorMsg: '' },
                     password: { error: true, errorMsg: '' },
                 },
-                isbusy: false,
+                checkInput: false,
                 loginErrorMsg: '',
             },
             methods: {
                 loginHandler(e) {
                     e.preventDefault();
 
-                    if (!this.AccountValidation(this.inputData.username)) {
+                    if (!this.AccountValidation(this.inputData.username) || !this.PasswordValidation(this.inputData.password)) {
                         return;
                     }
-                    isbusy = true;
+                    checkInput = true;
                     axios({
                         method: 'post',
                         headers: { 'Content-type': 'application/json' },
-                        url: '/api/login/login',
+                        url: '/api/APILogin/login',
                         data: this.inputData,
                     }).then(res => {
                         console.log(res)
@@ -87,7 +87,7 @@
                     }).catch(err => {
                         this.loginErrorMsg = '帳號或密碼錯誤';
                     }).finally(() => {
-                        isbusy = false;
+                        checkInput = false;
                     });
                 },
                 AccountValidation(username) {
@@ -117,11 +117,11 @@
 
     <script>
         function LoginInvalidRedirect() {
-            window.location.href = '/Epalback/Loginin';
+            window.location.href = '/Account/Login';
         }
 
         function LoginValidRedirect() {
-            window.location.href = '/Epalback/Home';
+            window.location.href = '/Account/Home';
         }
 
         function TokenSetter(value) {

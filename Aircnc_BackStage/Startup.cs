@@ -1,5 +1,7 @@
+using Aircnc_BackStage.Helpers;
 using Aircnc_BackStage.Models;
 using AircncFrontStage.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,9 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Aircnc_BackStage
@@ -32,6 +36,26 @@ namespace Aircnc_BackStage
                 options.UseSqlServer(Configuration.GetConnectionString("AircncContext"));
 
             });
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+              .AddJwtBearer(
+                  option =>
+                  {
+                      option.IncludeErrorDetails = true;
+
+                      option.TokenValidationParameters = new TokenValidationParameters
+                      {
+                          ValidateIssuer = true,
+                          ValidIssuer = JwtHelper.Issuer,
+                          ValidateAudience = false,
+                          ValidateLifetime = true,
+                          IssuerSigningKey = JwtHelper.SecurityKey
+                              
+                      };
+
+                  });
+            //µù¥U Swagger ªA°È
+            services.AddSwaggerDocument();
             services.AddTransient<DBRepository, DBRepository>();
         }
 
@@ -49,10 +73,12 @@ namespace Aircnc_BackStage
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
