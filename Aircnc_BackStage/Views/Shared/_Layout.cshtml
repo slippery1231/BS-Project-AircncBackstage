@@ -15,10 +15,11 @@
     <!-- Load polyfills to support older browsers -->
     <script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"
             crossorigin="anonymous"></script>
-
+    
     <!-- Load Vue followed by BootstrapVue -->
-    <script src="~/lib/bootstrap/dist/js/vue.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap-vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap-vue.min.js"></script>*@
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
     <!-- Load the following for BootstrapVueIcons support -->
     <script src="~/lib/bootstrap/dist/js/bootstrap-vue-icons.min.js"></script>
@@ -54,7 +55,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="Home/Index">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
@@ -236,5 +237,7 @@
     <script src="~/js/demo/chart-pie-demo.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="~/js/sb-admin-2.min.js"></script>
+    @await RenderSectionAsync("endCSS", required: false)
+    @await RenderSectionAsync("endJS", required: false)
 </body>
 </html>

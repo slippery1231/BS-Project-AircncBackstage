@@ -1,5 +1,6 @@
 using Aircnc_BackStage.Helpers;
 using Aircnc_BackStage.Models;
+using Aircnc_BackStage.Services;
 using AircncFrontStage.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -57,6 +58,7 @@ namespace Aircnc_BackStage
             //µù¥U Swagger ªA°È
             services.AddSwaggerDocument();
             services.AddTransient<DBRepository, DBRepository>();
+            services.AddTransient<GetDataService, GetDataService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
