@@ -37,12 +37,13 @@ namespace Aircnc_BackStage.Controllers.Api
 
         [Authorize]
         [HttpGet]
-        public IActionResult Test()
+        public IActionResult CheckToken()
         {
           
                 return Ok("通過");
            
         }
+        
 
     }
 }

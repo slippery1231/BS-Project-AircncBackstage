@@ -127,7 +127,7 @@
         function TokenSetter(value) {
             
             
-            return Cookies.set('accessToken', value);
+            return Cookies.set('accessToken', value, { expires: 2 });
         }
 
         function TokenGetter() {

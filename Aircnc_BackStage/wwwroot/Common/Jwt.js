@@ -7,7 +7,7 @@ function LoginValidRedirect() {
 }
 
 function TokenSetter(value) {
-    return Cookies.set('accessToken', value);
+    return Cookies.set('accessToken', value, { expires: 2});
 }
 
 function TokenGetter() {
@@ -18,7 +18,7 @@ function TokenGetter() {
 function GenCurrentAuthBarerFormat() {
     return `Bearer ${TokenGetter()}`;
 }
-
+//載入頁面時判斷是否有登入
 window.onload = function () {
     //判斷是否有TOKEN
     if (Cookies.get('accessToken') == null) {
@@ -27,7 +27,7 @@ window.onload = function () {
     else {
         console.log(GenCurrentAuthBarerFormat())
         //判斷token是否有效
-        fetch('https://localhost:5001/api/APILogin/Test', {
+        fetch('/api/APILogin/CheckToken', {
             method: 'get',
             headers: {
                 'Content-type': 'application/json',
@@ -46,4 +46,10 @@ window.onload = function () {
         })
 
     }
+}
+//登出
+function Logout()
+{
+    Cookies.remove('accessToken');
+    window.location.href = '/Home/Login';
 }
