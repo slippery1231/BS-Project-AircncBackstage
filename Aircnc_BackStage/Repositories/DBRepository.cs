@@ -35,7 +35,7 @@ namespace AircncFrontStage.Repositories
             _DbContext.SaveChanges();
         }
 
-        //傳入PK  return 那一筆entity 找不到則return null
+        //傳入PK  return 那一筆entity 找不到則return null e
         public TEntity GetEntityById<TEntity>(int? id) where TEntity : class
         {
             return _DbContext.Find<TEntity>(id);
