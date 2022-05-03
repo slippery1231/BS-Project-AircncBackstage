@@ -19,7 +19,6 @@ using System.Threading.Tasks;
 
 namespace Aircnc_BackStage
 {
-    //t
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -59,7 +58,10 @@ namespace Aircnc_BackStage
             //µù¥U Swagger ªA°È
             services.AddSwaggerDocument();
             services.AddTransient<DBRepository, DBRepository>();
+
+            //Add service
             services.AddTransient<GetDataService, GetDataService>();
+            services.AddTransient<GetUserService, GetUserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
