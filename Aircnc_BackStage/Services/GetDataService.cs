@@ -34,6 +34,7 @@ namespace Aircnc_BackStage.Services
             }
             else return 0;
         }
+        //1
         public int GetThismonthIncome()
         {
             if (_dBRepository.GetAll<Order>().Where(order => DateTime.Now.Month == order.BookingDateTime.Month).Count() != 0)
