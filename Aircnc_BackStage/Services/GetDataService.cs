@@ -1,4 +1,5 @@
 ﻿using Aircnc_BackStage.Models;
+using Aircnc_BackStage.Models.DataModels;
 using AircncFrontStage.Repositories;
 using System;
 using System.Collections.Generic;
@@ -41,5 +42,22 @@ namespace Aircnc_BackStage.Services
             }
             else return 0;
         }
+        public IEnumerable<ChartDataModel> GetChartData()
+        {
+            return  _dBRepository.GetAll<Room>().ToArray().GroupBy(x => x.City)
+               .Select(x => new
+               {
+                   City = x.Key,
+                   RoomCount = x.Count(),
+               }).OrderByDescending(x => x.RoomCount).Take(10)
+            .Select((x, index) => new ChartDataModel
+            {
+                Ranking = index + 1,
+                Area = x.City,
+                Ratio = x.RoomCount / (float)(_dBRepository.GetAll<Room>().Count())
+            });
+        }
+
+
     }
 }

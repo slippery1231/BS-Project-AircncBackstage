@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aircnc_BackStage.Models.DataModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,5 +13,6 @@ namespace Aircnc_BackStage.Models.ViewModels
 
         public int LastMonthIncome { get; set; }
         public int ThisMonthIncome { get; set; }
+        public IEnumerable<ChartDataModel> ChartDataModels { get; set; }
     }
 }
