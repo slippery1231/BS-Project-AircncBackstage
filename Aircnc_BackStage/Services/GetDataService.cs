@@ -20,5 +20,26 @@ namespace Aircnc_BackStage.Services
             return _dBRepository.GetAll<Room>().Count();
         }
 
+        public int UserCount()
+        {
+            return _dBRepository.GetAll<User>().Where(user => user.IsDelete != true).Count();
+        }
+
+        public int GetLastmonthIncome()
+        {
+            if (_dBRepository.GetAll<Order>().Where(order=> DateTime.Now.AddMonths(-1).Month == order.BookingDateTime.Month).Count() != 0)
+            {
+                return (int)_dBRepository.GetAll<Order>().Where(order => order.Status == 1 && DateTime.Now.AddMonths(-1).Month == order.BookingDateTime.Month).Sum(order => order.OriginalPrice);
+            }
+            else return 0;
+        }
+        public int GetThismonthIncome()
+        {
+            if (_dBRepository.GetAll<Order>().Where(order => DateTime.Now.Month == order.BookingDateTime.Month).Count() != 0)
+            {
+                return (int)_dBRepository.GetAll<Order>().Where(order => order.Status == 1 && DateTime.Now.Month == order.BookingDateTime.Month).Sum(order => order.OriginalPrice);
+            }
+            else return 0;
+        }
     }
 }

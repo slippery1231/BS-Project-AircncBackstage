@@ -1,4 +1,5 @@
-﻿using Aircnc_BackStage.Services;
+﻿using Aircnc_BackStage.Models.ViewModels;
+using Aircnc_BackStage.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,11 +23,20 @@ namespace Aircnc_BackStage.Controllers.Api
         }
         [HttpGet]
         
-        public IActionResult GetAllRoomCount()
+        public IActionResult GetHomePageData()
         {
-            var result = _getDataService.RoomCount();
+            var result = new HomePageViewModel
+            {
+                RoomCount = _getDataService.RoomCount(),
+                UserCount = _getDataService.UserCount(),
+                LastMonthIncome = _getDataService.GetLastmonthIncome(),
+                ThisMonthIncome = _getDataService.GetThismonthIncome(),
+            };
 
-            return new JsonResult(result.ToString());
+            
+
+            return new JsonResult(result);
         }
+
     }
 }
