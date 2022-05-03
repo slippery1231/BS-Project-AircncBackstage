@@ -60,14 +60,15 @@ fetch('/api/GetData/GetCharData', {
 
 
 //第一個參數為公司名稱陣列, 第二個參數為資料陣列
-function drawPieChart(companyArray, dataArray) {
+function drawPieChart(cityarray, dataArray) {
     //Pie Chart圓餅圖
     let ctxPie = document.getElementById("myAreaChart");
     var pieChart = new Chart(ctxPie, {
-        type: 'pie',//bar pie 改變圖表外貿
+        type: 'bar',//bar pie 改變圖表外貿
         data: {
-            labels: companyArray,
+            labels: cityarray,
             datasets: [{
+                label:'各縣市',
                 data: dataArray,
                 backgroundColor: [
                     'rgb(255, 99, 132)',
