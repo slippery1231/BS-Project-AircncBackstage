@@ -64,7 +64,7 @@ function drawPieChart(companyArray, dataArray) {
     //Pie Chart圓餅圖
     let ctxPie = document.getElementById("myAreaChart");
     var pieChart = new Chart(ctxPie, {
-        type: 'doughnut',//bar pie 改變圖表外貿
+        type: 'pie',//bar pie 改變圖表外貿
         data: {
             labels: companyArray,
             datasets: [{
@@ -88,7 +88,7 @@ function drawPieChart(companyArray, dataArray) {
             title: {
                 display: true,
                 fontSize: 26,
-                text: '2021年全球晶圓代工市佔率%'
+                text: '各縣市房源數量比例'
             },
             tooltips: {
                 mode: 'point',
