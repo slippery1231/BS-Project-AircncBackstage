@@ -22,6 +22,7 @@ namespace Aircnc_BackStage.Controllers.Api
 
         }
         [HttpGet]
+        [Authorize]
         
         public IActionResult GetHomePageData()
         {
