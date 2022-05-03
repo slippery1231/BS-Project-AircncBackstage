@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 
 namespace Aircnc_BackStage
 {
+    //t
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -55,7 +56,7 @@ namespace Aircnc_BackStage
                       };
 
                   });
-            //µù¥U Swagger ªA°È
+            //ÂµÃ¹Â¥U Swagger ÂªAÂ°Ãˆ
             services.AddSwaggerDocument();
             services.AddTransient<DBRepository, DBRepository>();
             services.AddTransient<GetDataService, GetDataService>();
