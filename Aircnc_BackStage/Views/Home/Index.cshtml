@@ -9,7 +9,7 @@
 
         <!-- Content Wrapper -->
 
-                <div class="container-fluid" >
+                <div class="container-fluid" id="app">
 
                     <!-- Content Row -->
                     <div class="row">
@@ -23,7 +23,7 @@
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 房間總數
                                             </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="roomCount">{{roomTotal}}</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{roomCount}}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -353,20 +353,29 @@
 
     <script>
        
-        fetch('/api/GetData/GetAllRoomCount', {
-            method: 'Get',
+
+
+        let app = new Vue({
+            el: '#app',
+            data: {
+                roomCount: ''
+            },
+            methods: {
+                getRoomCount() {
+                    fetch('/api/GetData/GetAllRoomCount', {
+                        method: 'Get',
+                    })
+                        .then(res => res.json())
+                        .then(jsondata => {
+
+                            this.roomCount = jsondata
+                        })
+                }
+            },
+            created() {
+                this.getRoomCount()
+            }
         })
-            .then(res => res.json())
-            .then(jsondata => {
-                let app = new Vue({
-                    el: '#roomCount',
-                    data: {
-                        roomTotal: jsondata
-                    }
-
-                })
-
-            })
        
        
      

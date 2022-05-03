@@ -18,8 +18,6 @@ namespace Aircnc_BackStage.Services
         public int RoomCount()
         {
             return _dBRepository.GetAll<Room>().Count();
-
-
         }
 
     }
