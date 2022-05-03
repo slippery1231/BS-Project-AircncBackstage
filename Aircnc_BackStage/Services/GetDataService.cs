@@ -58,7 +58,21 @@ namespace Aircnc_BackStage.Services
                 Ratio = x.RoomCount / (float)(_dBRepository.GetAll<Room>().Count())
             });
         }
-
+        public IEnumerable<PieDataModel> GetPieData()
+        {
+            return _dBRepository.GetAll<Order>().ToArray().GroupBy(x => x.City)
+               .Select(x => new
+               {
+                   City = x.Key,
+                   Total = x.Sum(y=>y.OriginalPrice),
+               }).OrderByDescending(x => x.Total).Take(5)
+            .Select((x, index) => new PieDataModel
+            {
+                Ranking = index + 1,
+                Area = x.City,
+                Ratio = (float)x.Total / (float)(_dBRepository.GetAll<Order>().Sum(y=>y.OriginalPrice))
+            });
+        }
 
     }
 }

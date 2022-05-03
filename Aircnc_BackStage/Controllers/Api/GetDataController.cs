@@ -41,5 +41,13 @@ namespace Aircnc_BackStage.Controllers.Api
             return new JsonResult(result);
         }
 
+        public IActionResult GetPieData()
+        {
+            var result = _getDataService.GetPieData();
+
+            return new JsonResult(result);
+        }
+
+
     }
 }
