@@ -30,7 +30,7 @@ namespace Aircnc_BackStage.Services
         {
             if (_dBRepository.GetAll<Order>().Where(order=> DateTime.Now.AddMonths(-1).Month == order.BookingDateTime.Month).Count() != 0)
             {
-                return (int)_dBRepository.GetAll<Order>().Where(order => order.Status == 1 && DateTime.Now.AddMonths(-1).Month == order.BookingDateTime.Month).Sum(order => order.OriginalPrice);
+                return (int)_dBRepository.GetAll<Order>().Where(order =>  DateTime.Now.AddMonths(-1).Month == order.BookingDateTime.Month).Sum(order => order.OriginalPrice);
             }
             else return 0;
         }
@@ -39,7 +39,7 @@ namespace Aircnc_BackStage.Services
         {
             if (_dBRepository.GetAll<Order>().Where(order => DateTime.Now.Month == order.BookingDateTime.Month).Count() != 0)
             {
-                return (int)_dBRepository.GetAll<Order>().Where(order => order.Status == 1 && DateTime.Now.Month == order.BookingDateTime.Month).Sum(order => order.OriginalPrice);
+                return (int)_dBRepository.GetAll<Order>().Where(order => DateTime.Now.Month == order.BookingDateTime.Month).Sum(order => order.OriginalPrice);
             }
             else return 0;
         }
@@ -50,13 +50,14 @@ namespace Aircnc_BackStage.Services
                {
                    City = x.Key,
                    RoomCount = x.Count(),
-               }).OrderByDescending(x => x.RoomCount).Take(10)
-            .Select((x, index) => new ChartDataModel
-            {
-                Ranking = index + 1,
-                Area = x.City,
-                Ratio = x.RoomCount / (float)(_dBRepository.GetAll<Room>().Count())
-            });
+               })
+               .OrderByDescending(x => x.RoomCount).Take(10)
+               .Select((x, index) => new ChartDataModel
+                {
+                    Ranking = index + 1,
+                    Area = x.City,
+                    Ratio = x.RoomCount / (float)(_dBRepository.GetAll<Room>().Count())
+                });
         }
         public IEnumerable<PieDataModel> GetPieData()
         {
@@ -65,13 +66,14 @@ namespace Aircnc_BackStage.Services
                {
                    City = x.Key,
                    Total = x.Sum(y=>y.OriginalPrice),
-               }).OrderByDescending(x => x.Total).Take(5)
-            .Select((x, index) => new PieDataModel
-            {
-                Ranking = index + 1,
-                Area = x.City,
-                Ratio = (float)x.Total / (float)(_dBRepository.GetAll<Order>().Sum(y=>y.OriginalPrice))
-            });
+               })
+               .OrderByDescending(x => x.Total).Take(5)
+                .Select((x, index) => new PieDataModel
+                {
+                    Ranking = index + 1,
+                    Area = x.City,
+                    Ratio = (float)x.Total / (float)(_dBRepository.GetAll<Order>().Sum(y=>y.OriginalPrice))
+                });
         }
 
     }
