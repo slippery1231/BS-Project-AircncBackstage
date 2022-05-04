@@ -1,9 +1,12 @@
+using Aircnc_BackStage.Common.Coraval;
+using Aircnc_BackStage.Common.Schudule;
 using Aircnc_BackStage.Helpers;
 using Aircnc_BackStage.Models;
 using Aircnc_BackStage.Repositories.Interface;
 using Aircnc_BackStage.Repositories.Redis;
 using Aircnc_BackStage.Services;
 using AircncFrontStage.Repositories;
+using Coravel;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -68,6 +71,12 @@ namespace Aircnc_BackStage
             //Add service
             services.AddTransient<GetDataService, GetDataService>();
             services.AddTransient<GetUserService, GetUserService>();
+            //排程
+            services.AddScheduler();
+
+            services.AddTransient<UpdateChartDataRedisTask>();
+            services.AddTransient<UpdatePieDataRedisTask>();
+            services.AddTransient<UpdateOrderStatusDaily>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,6 +92,13 @@ namespace Aircnc_BackStage
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            //排程
+            app.ApplicationServices.UseScheduler(scheduler => {
+                scheduler.Schedule<UpdateChartDataRedisTask>().DailyAt(23,59);
+                scheduler.Schedule<UpdatePieDataRedisTask>().DailyAt(23, 59);
+                scheduler.Schedule<UpdateOrderStatusDaily>().DailyAt(23, 59);
+            });
+
             app.UseHttpsRedirection();
             app.UseOpenApi();
             app.UseSwaggerUi3();
