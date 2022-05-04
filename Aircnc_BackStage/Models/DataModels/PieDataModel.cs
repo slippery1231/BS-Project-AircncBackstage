@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace Aircnc_BackStage.Models.DataModels
 {
+    [Serializable]
     public class PieDataModel
     {
         public int Ranking { get; set; }

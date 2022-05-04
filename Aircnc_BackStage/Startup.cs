@@ -1,5 +1,7 @@
 using Aircnc_BackStage.Helpers;
 using Aircnc_BackStage.Models;
+using Aircnc_BackStage.Repositories.Interface;
+using Aircnc_BackStage.Repositories.Redis;
 using Aircnc_BackStage.Services;
 using AircncFrontStage.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -55,10 +57,14 @@ namespace Aircnc_BackStage
                       };
 
                   });
+            //註冊REdis
+            services.AddStackExchangeRedisCache(options =>
+            options.Configuration = Configuration["RedisConfig:ToolManMemoryCache"]);
             //µù¥U Swagger ªA°È
             services.AddSwaggerDocument();
+            //repository
             services.AddTransient<DBRepository, DBRepository>();
-
+            services.AddTransient<IMemoryCacheRepository, MemoryCacheRepository>();
             //Add service
             services.AddTransient<GetDataService, GetDataService>();
             services.AddTransient<GetUserService, GetUserService>();

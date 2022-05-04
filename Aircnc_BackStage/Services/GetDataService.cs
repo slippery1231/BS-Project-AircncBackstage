@@ -1,5 +1,7 @@
 ﻿using Aircnc_BackStage.Models;
 using Aircnc_BackStage.Models.DataModels;
+using Aircnc_BackStage.Repositories.Interface;
+using Aircnc_BackStage.Repositories.Redis;
 using AircncFrontStage.Repositories;
 using System;
 using System.Collections.Generic;
@@ -11,9 +13,11 @@ namespace Aircnc_BackStage.Services
     public class GetDataService
     {
         private readonly DBRepository _dBRepository;
-        public GetDataService(DBRepository dBRepository)
+        private readonly IMemoryCacheRepository _memoryCacheRepository;
+        public GetDataService(DBRepository dBRepository, IMemoryCacheRepository memoryCacheRepository)
         {
             _dBRepository = dBRepository;
+            _memoryCacheRepository = memoryCacheRepository;
         }
         //房間總數
         public int RoomCount()
@@ -45,7 +49,10 @@ namespace Aircnc_BackStage.Services
         }
         public IEnumerable<ChartDataModel> GetChartData()
         {
-            return  _dBRepository.GetAll<Room>().ToArray().GroupBy(x => x.City)
+            var result = _memoryCacheRepository.Get<IEnumerable<ChartDataModel>>("Aircnc.ChartData");
+            if (result != null) return result;
+
+             result =  _dBRepository.GetAll<Room>().ToArray().GroupBy(x => x.City)
                .Select(x => new
                {
                    City = x.Key,
@@ -58,10 +65,15 @@ namespace Aircnc_BackStage.Services
                     Area = x.City,
                     Ratio = x.RoomCount / (float)(_dBRepository.GetAll<Room>().Count())
                 });
+
+            _memoryCacheRepository.Set<IEnumerable<ChartDataModel>>("Aircnc.ChartData",result);
+            return result;
         }
         public IEnumerable<PieDataModel> GetPieData()
         {
-            return _dBRepository.GetAll<Order>().ToArray().GroupBy(x => x.City)
+            var result = _memoryCacheRepository.Get<IEnumerable<PieDataModel>>("Aircnc.PieData");
+            if (result != null) return result;
+            result = _dBRepository.GetAll<Order>().ToArray().GroupBy(x => x.City)
                .Select(x => new
                {
                    City = x.Key,
@@ -74,6 +86,8 @@ namespace Aircnc_BackStage.Services
                     Area = x.City,
                     Ratio = (float)x.Total / (float)(_dBRepository.GetAll<Order>().Sum(y=>y.OriginalPrice))
                 });
+            _memoryCacheRepository.Set<IEnumerable<PieDataModel>>("Aircnc.PieData",result);
+            return result;
         }
 
     }
