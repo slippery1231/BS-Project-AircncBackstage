@@ -96,7 +96,7 @@ namespace Aircnc_BackStage
             app.ApplicationServices.UseScheduler(scheduler => {
                 scheduler.Schedule<UpdateChartDataRedisTask>().Hourly();
                 scheduler.Schedule<UpdatePieDataRedisTask>().Hourly();
-                scheduler.Schedule<UpdateOrderStatusDaily>().DailyAt(23, 59);
+                scheduler.Schedule<UpdateOrderStatusDaily>().DailyAt(0, 1);
             });
 
             app.UseHttpsRedirection();
