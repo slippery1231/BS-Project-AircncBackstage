@@ -59,16 +59,16 @@ fetch('/api/GetData/GetCharData', {
 
 
 
-//第一個參數為公司名稱陣列, 第二個參數為資料陣列
+
 function drawChart(cityarray, dataArray) {
-    //Pie Chart圓餅圖
-    let ctxPie = document.getElementById("myAreaChart");
-    var pieChart = new Chart(ctxPie, {
+    //Chart長條圖
+    let ctxPie2 = document.getElementById("myAreaChart");
+    var pieChart = new Chart(ctxPie2, {
         type: 'bar',//bar pie 改變圖表外貿
         data: {
             labels: cityarray,
             datasets: [{
-                label:'各縣市',
+                label: '長條圖',
                 data: dataArray,
                 backgroundColor: [
                     'rgb(255, 99, 132)',
@@ -82,7 +82,15 @@ function drawChart(cityarray, dataArray) {
                     'rgb(142, 65, 64)',
                     'rgb(59, 72, 64)'
                 ]
-            }],
+            }, {
+                    type: 'line',
+                    label: '折線圖',
+                data: dataArray,
+                fill: true,
+                borderColor: 'rgb(75, 192, 192)',
+                }
+
+            ],
         },
         options: {
             responsive: true,
