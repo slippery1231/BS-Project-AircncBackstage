@@ -29,10 +29,17 @@ namespace Aircnc_BackStage.Services
         {
             return _dBRepository.GetAll<User>().Where(user => user.IsDelete != true).Count();
         }
-
+        public int GetTodayIncome()
+        {
+            if (_dBRepository.GetAll<Order>().Where(order => DateTime.UtcNow.AddHours(8).Date == order.BookingDateTime.Date).Count() != 0)
+            {
+                return (int)_dBRepository.GetAll<Order>().Where(order => DateTime.UtcNow.AddHours(8).Date == order.BookingDateTime.Date).Sum(order => order.OriginalPrice);
+            }
+            else return 0;
+        }
         public int GetLastmonthIncome()
         {
-            if (_dBRepository.GetAll<Order>().Where(order=> DateTime.Now.AddMonths(-1).Month == order.BookingDateTime.Month).Count() != 0)
+            if (_dBRepository.GetAll<Order>().Where(order=> DateTime.UtcNow.AddHours(8).AddMonths(-1).Month == order.BookingDateTime.Month).Count() != 0)
             {
                 return (int)_dBRepository.GetAll<Order>().Where(order =>  DateTime.Now.AddMonths(-1).Month == order.BookingDateTime.Month).Sum(order => order.OriginalPrice);
             }
@@ -41,12 +48,41 @@ namespace Aircnc_BackStage.Services
         //1
         public int GetThismonthIncome()
         {
-            if (_dBRepository.GetAll<Order>().Where(order => DateTime.Now.Month == order.BookingDateTime.Month).Count() != 0)
+            if (_dBRepository.GetAll<Order>().Where(order => DateTime.UtcNow.AddHours(8).Month == order.BookingDateTime.Month).Count() != 0)
             {
                 return (int)_dBRepository.GetAll<Order>().Where(order => DateTime.Now.Month == order.BookingDateTime.Month).Sum(order => order.OriginalPrice);
             }
             else return 0;
         }
+        public int GetThisMonthRoom()
+        {
+            var result = _dBRepository.GetAll<Room>().Where(x => x.CreateTime.Month == DateTime.UtcNow.AddHours(8).Month).Count() == 0 ?
+                0 : _dBRepository.GetAll<Room>().Where(x => x.CreateTime.Month == DateTime.UtcNow.AddHours(8).Month).Count();
+
+            return result;
+        }
+        public int GetThisMonthUser()
+        {
+            var result = _dBRepository.GetAll<User>().Where(x => x.CreateTime.Month == DateTime.UtcNow.AddHours(8).Month).Count() == 0 ?
+                0 : _dBRepository.GetAll<User>().Where(x => x.CreateTime.Month == DateTime.UtcNow.AddHours(8).Month).Count();
+
+            return result;
+        }
+        public int GetTodayRoom()
+        {
+            var result = _dBRepository.GetAll<Room>().Where(x => x.CreateTime.Date == DateTime.UtcNow.AddHours(8).Date).Count() == 0 ?
+                0 : _dBRepository.GetAll<Room>().Where(x => x.CreateTime.Date == DateTime.UtcNow.AddHours(8).Date).Count();
+
+            return result;
+        }
+        public int GetTodayUser()
+        {
+            var result = _dBRepository.GetAll<User>().Where(x => x.CreateTime.Date == DateTime.UtcNow.AddHours(8).Date).Count() == 0 ?
+                0 : _dBRepository.GetAll<User>().Where(x => x.CreateTime.Date == DateTime.UtcNow.AddHours(8).Date).Count();
+
+            return result;
+        }
+
         public IEnumerable<ChartDataModel> GetChartData()
         {
             var result = _memoryCacheRepository.Get<IEnumerable<ChartDataModel>>("Aircnc.ChartData");

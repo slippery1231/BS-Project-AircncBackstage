@@ -4,7 +4,12 @@
         roomCount: '',
         userCount: '',
         lastMonthIncome: '',
-        thisMonthIncome:''
+        thisMonthIncome: '',
+        thisMonthRoom: '',
+        thisMonthUser: '',
+        todayRoom: '',
+        todayUser: '',
+        todayIncome:''
     },
     methods: {
         getData() {
@@ -17,10 +22,15 @@
             })
                 .then(res => res.json())
                 .then(jsondata => {
-                    this.roomCount = jsondata.roomCount
-                    this.userCount = jsondata.userCount
-                    this.lastMonthIncome = jsondata.lastMonthIncome.toLocaleString('en-US'),
-                    this.thisMonthIncome = jsondata.thisMonthIncome.toLocaleString('en-US')
+                    this.roomCount = jsondata.roomCount.toLocaleString('en-US'),
+                        this.userCount = jsondata.userCount.toLocaleString('en-US'),
+                        this.lastMonthIncome = jsondata.lastMonthIncome.toLocaleString('en-US'),
+                        this.thisMonthIncome = jsondata.thisMonthIncome.toLocaleString('en-US'),
+                        this.thisMonthRoom = jsondata.thisMonthRoom.toLocaleString('en-US'),
+                        this.thisMonthUser = jsondata.thisMonthUser.toLocaleString('en-US'),
+                        this.todayRoom = jsondata.todayRoom.toLocaleString('en-US'),
+                        this.todayUser = jsondata.todayUser.toLocaleString('en-US'),
+                        this.todayIncome = jsondata.todayIncome.toLocaleString('en-US')
                 })
         }
     },
