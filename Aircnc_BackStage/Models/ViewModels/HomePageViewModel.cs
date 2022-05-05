@@ -13,6 +13,11 @@ namespace Aircnc_BackStage.Models.ViewModels
 
         public int LastMonthIncome { get; set; }
         public int ThisMonthIncome { get; set; }
-        public IEnumerable<ChartDataModel> ChartDataModels { get; set; }
+        public int ThisMonthRoom { get; set; }
+        public int ThisMonthUser{ get; set; }
+        public int TodayRoom { get; set; }
+        public int TodayUser { get; set; }
+        public int TodayIncome { get; set; }
+       
     }
 }

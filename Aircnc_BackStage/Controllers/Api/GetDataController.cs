@@ -30,7 +30,13 @@ namespace Aircnc_BackStage.Controllers.Api
                 UserCount = _getDataService.UserCount(),
                 LastMonthIncome = _getDataService.GetLastmonthIncome(),
                 ThisMonthIncome = _getDataService.GetThismonthIncome(),
-                
+                ThisMonthRoom = _getDataService.GetThisMonthRoom(),
+                ThisMonthUser =_getDataService.GetThisMonthUser(),
+                TodayRoom = _getDataService.GetTodayRoom(),
+                TodayUser = _getDataService.GetTodayUser(),
+                TodayIncome = _getDataService.GetTodayIncome()
+
+
             };
             return new JsonResult(result);
         }

@@ -26,28 +26,42 @@
 
     <!-- Content Row -->
     <div class="row">
-
-        <!-- 房間總數 -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                房間總數
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                今日新增會員數
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{roomCount}}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{todayUser}}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-house-user fa-2x text-gray-300"></i>
+                            <i class="fas fa-user fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                本月新增會員數
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{thisMonthUser}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- 會員總數 -->
-        <div class="col-xl-3 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-6 mb-4">
             <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -64,9 +78,95 @@
                 </div>
             </div>
         </div>
-
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                今日新增房源數
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{todayRoom}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-house-user fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                本月新增房源數
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{thisMonthRoom}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-house-user fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 房間總數 -->
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                房間總數
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{roomCount}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-house-user fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                今日營收
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><span>$ </span>{{todayIncome}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-money-bill fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Earnings 本月營收 -->
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                本月目前營收
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><span>$ </span>{{thisMonthIncome}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-money-bill-alt fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Earnings 上月營收 -->
-        <div class="col-xl-3 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-6 mb-4">
             <div class="card border-left-secondary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -83,74 +183,52 @@
                 </div>
             </div>
         </div>
-
-        <!-- Earnings 本月營收 -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                本月目前營收
-                            </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><span>$ </span>{{thisMonthIncome}}</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-money-bill-alt fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Content Row -->
-
         <div class="row">
 
-            <!-- Area Chart -->
-            <div class="col-xl-8 col-lg-7">
-                <div class="card shadow mb-4">
-                    <!-- Card Body -->
-                    <div class="card-body chartarea ">
-                        
+
+
+
+            <!-- Content Row -->
+
+            <div class="row">
+
+                <!-- Area Chart -->
+                <div class="col-xl-8 col-lg-7">
+                    <div class="card shadow mb-4">
+                        <!-- Card Body -->
+                        <div class="card-body chartarea ">
+
                             <canvas id="myAreaChart"></canvas>
-                       
+
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
-                <div class="card shadow mb-4">
-                    <!-- Card Body -->
-                    <div class="card-body chartarea  ">
-                        
+                <!-- Pie Chart -->
+                <div class="col-xl-4 col-lg-5">
+                    <div class="card shadow mb-4">
+                        <!-- Card Body -->
+                        <div class="card-body chartarea  ">
+
                             <canvas id="myPieChart"></canvas>
-                        
+
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Content Row -->
+
+
         </div>
-
-        <!-- Content Row -->
-
-
+        <!-- /.container-fluid -->
     </div>
-    <!-- /.container-fluid -->
+
 </div>
-
-
 
 @section endJS{
 
     <script src="~/js/Index.js"></script>
-
-
-
-
-
-
-
 }
 
 
