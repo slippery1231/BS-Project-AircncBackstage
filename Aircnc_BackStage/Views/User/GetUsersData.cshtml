@@ -1,93 +1,73 @@
 ﻿@{Layout = "_GetUsersDataLayout.cshtml";}
 
 <!-- Begin Page Content -->
-<div class="container-fluid">
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-body" id="app">
-            <b-table striped hover :items="items" :fields="fields">
-                <template #row-details="row">
-                    <b-card>
-                        <ul>
-                            <li v-for="(value,key) in items" :key="key">{{key}} : {{value}}</li>
-                        </ul>
-                    </b-card>
-                </template>
+<div class="card mb-4" id="app">
+        <b-table striped hover :fields="fields" :items="userList" label-sort-asc="" label-sort-desc="" label-sort-clear="">
 
-            </b-table>
+            <!-- #cell()括弧內要放fields的key -->
+            <template #cell(Detail)="row">
+                <!-- 點開可以跳出內容 -->
+                <b-button v-on:click="row.toggleDetails" class="detail-btn">詳細</b-button>
+            </template>
 
-            @*<div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>會員編號</th>
-                            <th>會員名稱</th>
-                            <th>電子郵件</th>
-                            <th>加入時間</th>
-                            <th>查看詳細</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>2011/04/25</td>
-                            <td><button class="btn bg-success text-white detail-btn">詳細</button></td>
-                        </tr>
-                        <tr>
-                            <td>Garrett Winters</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>2011/07/25</td>
-                            <td>$170,750</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>*@
-        </div>
-    </div>
+            <!-- 可以自定義row -->
+            <template #row-details="row">
+                <b-card>
+                    <ul>
+                        <li v-for="(value,key) in row.userList" :key="key">{{key}} : {{value}}</li>
+                    </ul>
+                </b-card>
+            </template>
+        </b-table>
 </div>
-<!-- /.container-fluid -->
 <!-- End of Main Content -->
 
 @section topCSS{
-<style>
-    .detail-btn {
-        background-color: #1cc88a
-    }
-</style>
+    <style>
+        .detail-btn {
+            background-color: #1cc88a
+        }
+    </style>
 
 }
 
 
 @section endJS{
-<script>
-    fetch('/api/User/GetUsersData', {
-        method: 'Get',
-    }))
-        .then(response=>repsonse.json())
-            .then(jsondata => {
-                let app = new Vue({
-                    el: '#app',
-                    data: {
-                        fields: [
-                            { key: 'UserId', label: '會員編號', sortable: true },
-                            { key: 'Name', label: '會員名稱' },
-                            { key: 'Email', label: '電子郵件' },
-                            { key: 'CreateTime', label: '創建時間' }
-
-                        ],
-                        items: [{
-                            UserId: 1,
-                            Name: 'abc',
-                            Email: 'abc@gmail.com',
-                            CreateTime: '2022/05/03'
-                        }]
+    <script>
+        let app = new Vue({
+            el: '#app',
+            data: {
+                fields: [
+                    { key: 'userId', label: '會員編號', sortable: true },
+                    { key: 'name', label: '會員名稱' },
+                    { key: 'email', label: '電子郵件' },
+                    { key: 'createTime', label: '創建時間', sortable:true },
+                    { key: 'Detail', label: '查看詳情' }
+                ],
+                userList:[]
+            },
+            methods: {
+                getUsers() {
+                        fetch('/api/GetUserData/GetUsersData', {
+                            headers: {
+                                'Content-type': 'application/json',
+                                'Authorization': GenCurrentAuthBarerFormat(),
+                            },
+                            method: 'Get',
+                        })
+                            .then(response => response.json())
+                            .then(jsondata => {
+                                console.log(jsondata)
+                                this.userList = jsondata
+                            })
                     }
-                })
+            },
+            created() {
+                    this.getUsers()
+            }
 
-            })
-</script>
+        });
+
+    </script>
 
 }

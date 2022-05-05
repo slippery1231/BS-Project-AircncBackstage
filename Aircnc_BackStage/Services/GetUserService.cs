@@ -30,7 +30,7 @@ namespace Aircnc_BackStage.Services
                 Photo = x.Photo,
                 EmergencyContactName = x.EmergencyContactName,
                 EmergencyContactPhone = x.EmergencyContactPhone,
-                CreateTime = x.CreateTime,
+                CreateTime = x.CreateTime.ToString("yyyy/MM/dd HH:mm:ss"),
                 UserVerificationId = x.UserVerificationId,
                 BankVerificationId = x.BankVerificationId,
                 IsDelete  = x.IsDelete,
