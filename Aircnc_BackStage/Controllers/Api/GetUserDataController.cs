@@ -10,10 +10,10 @@ namespace Aircnc_BackStage.Controllers.Api
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class GetUserDataController : ControllerBase
     {
         private readonly GetUserService _getUserService;
-        public UserController(GetUserService getUserService)
+        public GetUserDataController(GetUserService getUserService)
         {
             _getUserService = getUserService;
         }

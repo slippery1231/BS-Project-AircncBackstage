@@ -18,7 +18,7 @@ namespace Aircnc_BackStage.Models.Dtos
         public string Photo { get; set; }
         public string EmergencyContactName { get; set; }
         public string EmergencyContactPhone { get; set; }
-        public DateTime CreateTime { get; set; }
+        public string CreateTime { get; set; }
         public int? UserVerificationId { get; set; }
         public int? BankVerificationId { get; set; }
         public bool? IsDelete { get; set; }
