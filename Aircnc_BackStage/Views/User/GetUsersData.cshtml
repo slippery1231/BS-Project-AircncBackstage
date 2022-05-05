@@ -1,0 +1,93 @@
+﻿@{Layout = "_GetUsersDataLayout.cshtml";}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body" id="app">
+            <b-table striped hover :items="items" :fields="fields">
+                <template #row-details="row">
+                    <b-card>
+                        <ul>
+                            <li v-for="(value,key) in items" :key="key">{{key}} : {{value}}</li>
+                        </ul>
+                    </b-card>
+                </template>
+
+            </b-table>
+
+            @*<div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>會員編號</th>
+                            <th>會員名稱</th>
+                            <th>電子郵件</th>
+                            <th>加入時間</th>
+                            <th>查看詳細</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tiger Nixon</td>
+                            <td>System Architect</td>
+                            <td>Edinburgh</td>
+                            <td>2011/04/25</td>
+                            <td><button class="btn bg-success text-white detail-btn">詳細</button></td>
+                        </tr>
+                        <tr>
+                            <td>Garrett Winters</td>
+                            <td>Accountant</td>
+                            <td>Tokyo</td>
+                            <td>2011/07/25</td>
+                            <td>$170,750</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>*@
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+<!-- End of Main Content -->
+
+@section topCSS{
+<style>
+    .detail-btn {
+        background-color: #1cc88a
+    }
+</style>
+
+}
+
+
+@section endJS{
+<script>
+    fetch('/api/User/GetUsersData', {
+        method: 'Get',
+    }))
+        .then(response=>repsonse.json())
+            .then(jsondata => {
+                let app = new Vue({
+                    el: '#app',
+                    data: {
+                        fields: [
+                            { key: 'UserId', label: '會員編號', sortable: true },
+                            { key: 'Name', label: '會員名稱' },
+                            { key: 'Email', label: '電子郵件' },
+                            { key: 'CreateTime', label: '創建時間' }
+
+                        ],
+                        items: [{
+                            UserId: 1,
+                            Name: 'abc',
+                            Email: 'abc@gmail.com',
+                            CreateTime: '2022/05/03'
+                        }]
+                    }
+                })
+
+            })
+</script>
+
+}
