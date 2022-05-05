@@ -14,7 +14,7 @@
             <template #row-details="row">
                 <b-card>
                     <ul>
-                        <li v-for="(value,key) in row.userList" :key="key">{{key}} : {{value}}</li>
+                        <li v-for="(value,key) in row.item" :key="key">{{key}} : {{value}}</li>
                     </ul>
                 </b-card>
             </template>
