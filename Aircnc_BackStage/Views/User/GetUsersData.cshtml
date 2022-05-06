@@ -37,7 +37,7 @@
             <template #row-details="row">
                 <b-card>
                     <ul>
-                        <li v-for="(value,key) in row.item" :key="key">{{key}} : {{value}}</li>
+                        <li v-for="(value,key) in row.item" :key="key">{{toChinese(key) }} : {{value}}</li>
                     </ul>
                 </b-card>
             </template>
@@ -102,6 +102,34 @@
                     this.totalRows = filteredItems.length
                     this.currentPage = 1
                 },
+                toChinese(key) {
+                    switch (key) {
+                        case 'userId':
+                            return '會員編號'
+                        case 'name':
+                            return '會員名稱'
+                        case 'email':
+                            return '電子郵件'
+                        case 'phone':
+                            return '電話'
+                        case 'address':
+                            return '地址'
+                        case 'birthday':
+                            return '生日'
+                        case 'gender':
+                            return '性別'
+                        case 'emergencyContactName':
+                            return '緊急聯絡人'
+                        case 'emergencyContactPhone':
+                            return '緊急連絡人電話'
+                        case 'createTime':
+                            return '創建時間'
+                        case 'isDelete':
+                            return '帳號使用狀況'
+                        case 'mailIsVerify':
+                            return '信箱驗證'
+                    }
+                }
             },
             created() {
                 this.getUsers()
