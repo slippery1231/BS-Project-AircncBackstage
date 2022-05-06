@@ -25,7 +25,7 @@ namespace Aircnc_BackStage.Services
                 Phone = x.Phone == null ? "未填寫" : x.Phone,
                 Address= x.Address == null? "未填寫": x.Address,
                 //Password = x.Password,
-                Birthday = x.Birthday,
+                Birthday = x.Birthday == null? "未填寫" : x.Birthday.ToString(),
                 Gender = x.Gender == false? "女性":"男性",
                 //Photo = x.Photo,
                 EmergencyContactName = x.EmergencyContactName == null? "未填寫":x.EmergencyContactName,

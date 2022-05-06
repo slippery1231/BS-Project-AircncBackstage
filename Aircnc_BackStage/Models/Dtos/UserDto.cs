@@ -15,7 +15,7 @@ namespace Aircnc_BackStage.Models.Dtos
         public string Phone { get; set; }
         public string Address { get; set; }
         //public string Password { get; set; }
-        public DateTime? Birthday { get; set; }
+        public string Birthday { get; set; }
         public string? Gender { get; set; }
         //public string Photo { get; set; }
         public string EmergencyContactName { get; set; }
