@@ -29,7 +29,7 @@ namespace Aircnc_BackStage.Repositories.Redis
         {
             _iDisributedCache.Set(key, ObjectToByteArray(value), new DistributedCacheEntryOptions()
             {
-                AbsoluteExpiration = DateTimeOffset.Now.AddDays(1)
+                AbsoluteExpiration = DateTimeOffset.Now.AddHours(1)
             });
         }
         private byte[] ObjectToByteArray(object obj)
