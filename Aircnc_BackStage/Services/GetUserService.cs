@@ -37,5 +37,13 @@ namespace Aircnc_BackStage.Services
                 MailIsVerify = x.MailIsVerify ==true? "已驗證":"未驗證"
             });
         }
+
+        public void UpdateAccountStatus(int userId)
+        {
+            var toBeUpdate = _dBRepository.GetEntityById<User>(userId);
+            toBeUpdate.IsDelete = true;
+            _dBRepository.Update<User>(toBeUpdate);
+            _dBRepository.Save();
+        }
     }
 }

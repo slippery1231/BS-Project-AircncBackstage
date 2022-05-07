@@ -26,14 +26,23 @@
                  label-sort-asc="" label-sort-desc="" label-sort-clear=""
                  :per-page="perPage" :current-page="currentPage"
                  :filter="filter" :filter-included-fields="filterOn" v-on:filtered="onFiltered">
+            
+            <!-- 選擇checkbox -->
+            @*<template #cell(#)="row">
+                <input type="checkbox" v-for="(item,index) in row.item"  :value="index" v-model="checkedRows">
+            </template>*@
 
-            <!-- #cell()括弧內要放fields的key -->
+            <!-- 詳細按鈕 -->
             <template #cell(Detail)="row">
-                <!-- 點開可以跳出內容 -->
                 <b-button v-on:click="row.toggleDetails" class="detail-btn">詳細</b-button>
             </template>
 
-            <!-- 可以自定義row -->
+            <!--刪除-->
+            <template #cell(Delete)="row">
+                <b-button v-on:click="deleteAccount" class="btn-danger">停用</b-button>
+            </template>
+
+            <!-- 查看詳情的card -->
             <template #row-details="row">
                 <b-card>
                     <ul>
@@ -41,6 +50,7 @@
                     </ul>
                 </b-card>
             </template>
+
         </b-table>
 
         <!-- 分頁功能 -->
@@ -73,7 +83,8 @@
                     { key: 'name', label: '會員名稱' },
                     { key: 'email', label: '電子郵件' },
                     { key: 'createTime', label: '創建時間', sortable:true },
-                    { key: 'Detail', label: '查看詳情' }
+                    { key: 'Detail', label: '查看詳情' },
+                    { key: 'Delete', label: '停用帳號' }
                 ],
                 userList: [],
                 perPage: 5,
@@ -129,6 +140,9 @@
                         case 'mailIsVerify':
                             return '信箱驗證'
                     }
+                },
+                deleteAccount() {
+                    alert('確定要停用該帳號?')
                 }
             },
             created() {
