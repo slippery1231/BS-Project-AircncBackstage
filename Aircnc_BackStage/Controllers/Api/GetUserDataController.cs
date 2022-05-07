@@ -25,5 +25,12 @@ namespace Aircnc_BackStage.Controllers.Api
 
             return new JsonResult(result);
         }
+
+        [HttpPost]
+        public IActionResult UpdateAccountStatus(int userId)
+        {
+              _getUserService.UpdateAccountStatus(userId);
+            return new JsonResult("停用成功");
+        }
     }
 }
