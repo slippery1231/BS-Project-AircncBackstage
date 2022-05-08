@@ -26,7 +26,7 @@ namespace Aircnc_BackStage.Controllers.Api
             return new JsonResult(result);
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult UpdateAccountStatus(int userId)
         {
               _getUserService.UpdateAccountStatus(userId);
