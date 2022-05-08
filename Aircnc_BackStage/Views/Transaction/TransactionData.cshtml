@@ -1,4 +1,5 @@
-﻿@{Layout = "_GetUsersDataLayout.cshtml";}
+﻿@{ Layout = "_GetTransactionDataLayout.cshtml";}
+
 
 <!-- Begin Page Content -->
 <div id="app" style="height: 100%;">
@@ -22,24 +23,19 @@
         </div>
     </div>
     <div class="card mb-4">
-        <b-table striped hover id="table" :fields="fields" :items="userList"
+        <b-table striped hover id="table" :fields="fields" :items="dataList"
                  label-sort-asc="" label-sort-desc="" label-sort-clear=""
                  :per-page="perPage" :current-page="currentPage"
                  :filter="filter" :filter-included-fields="filterOn" v-on:filtered="onFiltered">
-            
-            <!-- 選擇checkbox -->
-            @*<template #cell(#)="row">
-                <input type="checkbox" v-for="(item,index) in row.item"  :value="index" v-model="checkedRows">
-            </template>*@
 
             <!-- 詳細按鈕 -->
             <template #cell(Detail)="row">
                 <b-button v-on:click="row.toggleDetails" class="detail-btn">詳細</b-button>
             </template>
 
-            <!--刪除-->
-            <template #cell(Delete)="row">
-                <b-button v-on:click="deleteAccount" class="btn-danger">停用</b-button>
+            <!--撥款-->
+            <template #cell(Fund)="row">
+                <b-button class="btn-danger">撥款</b-button>
             </template>
 
             <!-- 查看詳情的card -->
@@ -79,14 +75,15 @@
             el: '#app',
             data: {
                 fields: [
-                    { key: 'userId', label: '會員編號', sortable: true },
-                    { key: 'name', label: '會員名稱' },
-                    { key: 'email', label: '電子郵件' },
-                    { key: 'createTime', label: '創建時間', sortable:true },
+                    { key: 'transactionStatusId', label: '交易編號', sortable: true },
+                    { key: 'orderId', label: '訂單編號' },
+                    { key: 'userId', label: '房東會員編號' ,sortable:true},
+                    { key: 'name', label: '房東姓名' },
+                    { key: 'createTime', label: '下訂時間', sortable:true },
                     { key: 'Detail', label: '查看詳情' },
-                    { key: 'Delete', label: '停用帳號' }
+                    { key: 'Fund', label: '撥款' }
                 ],
-                userList: [],
+                dataList: [],
                 perPage: 10,
                 currentPage: 1,
                 filter: null,
@@ -94,8 +91,8 @@
 
             },
             methods: {
-                getUsers() {
-                    fetch('/api/GetUserData/GetUsersData', {
+                getData() {
+                    fetch('/api/GetTransactionData/GetAllTransactionData', {
                         headers: {
                             'Content-type': 'application/json',
                             'Authorization': GenCurrentAuthBarerFormat(),
@@ -105,7 +102,7 @@
                         .then(response => response.json())
                         .then(jsondata => {
                             console.log(jsondata)
-                            this.userList = jsondata
+                            this.dataList = jsondata
                         })
                 },
                 onFiltered(filteredItems) {
@@ -115,58 +112,28 @@
                 },
                 toChinese(key) {
                     switch (key) {
+                        case 'transactionStatusId':
+                            return '交易編號'
                         case 'userId':
-                            return '會員編號'
+                            return '房東會員編號'
+                        case 'orderId':
+                            return '訂單編號'
                         case 'name':
-                            return '會員名稱'
-                        case 'email':
-                            return '電子郵件'
-                        case 'phone':
-                            return '電話'
-                        case 'address':
-                            return '地址'
-                        case 'birthday':
-                            return '生日'
-                        case 'gender':
-                            return '性別'
-                        case 'emergencyContactName':
-                            return '緊急聯絡人'
-                        case 'emergencyContactPhone':
-                            return '緊急連絡人電話'
+                            return '房東姓名'
                         case 'createTime':
-                            return '創建時間'
-                        case 'isDelete':
-                            return '帳號使用狀況'
-                        case 'mailIsVerify':
-                            return '信箱驗證'
+                            return '下訂時間'
                     }
                 },
-                deleteAccount() {
-                    alert('確定要停用該帳號?')
-                    fetch('/api/GetUserData/UpdateAccountStatus', {
-                        headers: {
-                            'Content-type': 'application/json',
-                            'Authorization': GenCurrentAuthBarerFormat(),
-                        },
-                        method: 'Get',
-
-                    })
-                        .then(response => response.json())
-                        .then(jsondata => {
-                            console.log(jsondata)
-
-                        })
-                }
             },
             created() {
-                this.getUsers()
+                this.getData()
             },
             computed: {
                 rows() {
-                    return this.userList.length
+                    return this.dataList.length
                 }
             }
-            
+
         })
 
     </script>

@@ -71,6 +71,7 @@ namespace Aircnc_BackStage
             //Add service
             services.AddTransient<GetDataService, GetDataService>();
             services.AddTransient<GetUserService, GetUserService>();
+            services.AddTransient<GetTransactionDataService, GetTransactionDataService>();
             //排程
             services.AddScheduler();
 
