@@ -25,5 +25,12 @@ namespace Aircnc_BackStage.Controllers.Api
 
             return new JsonResult(result);
         }
+
+        [HttpPost]
+        public IActionResult UpdateTransactionStatus([FromBody]int transactionStatusId)
+        {
+             _getData.UpdateTransaction(transactionStatusId);
+            return new JsonResult("撥款成功");
+        }
     }
 }
