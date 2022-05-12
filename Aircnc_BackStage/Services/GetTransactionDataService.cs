@@ -23,10 +23,11 @@ namespace Aircnc_BackStage.Services
                 TransactionStatusId = x.TransactionStatusId, //資料庫的流水編號
                 UserId = x.UserId, //房東id
                 Name = _dbRepository.GetAll<User>().FirstOrDefault(u=>u.UserId == x.UserId).Name,
-                //OrderId = x.OrderId,
                 CreateTime = x.CreateTime.ToString("yyyy/MM/dd HH:mm:ss"),
                 TotalAmount = x.TotalAmount,
-                StatusType = x.StatusType == 1? "尚未撥款" : "已完成撥款"
+                StatusType = x.StatusType == 1? "尚未撥款" : "已完成撥款",
+                CheckIn = _dbRepository.GetAll<Order>().FirstOrDefault(o=>o.CkeckIn == x.Order.CkeckIn).CkeckIn.ToString(),
+                CheckOut = _dbRepository.GetAll<Order>().FirstOrDefault(o=>o.CkeckOut == x.Order.CkeckOut).CkeckOut.ToString()
 
             });
         }

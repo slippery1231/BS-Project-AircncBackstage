@@ -14,6 +14,8 @@ namespace Aircnc_BackStage.Models.Dtos
         public string CreateTime { get; set; }
         public decimal TotalAmount { get; set; }
         public string StatusType { get; set; }
+        public string CheckIn { get; set; }
+        public string CheckOut { get; set; }
 
 
     }

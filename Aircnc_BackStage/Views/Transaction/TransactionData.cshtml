@@ -116,8 +116,6 @@
                             return '交易編號'
                         case 'userId':
                             return '房東會員編號'
-                        //case 'orderId':
-                        //    return '訂單編號'
                         case 'name':
                             return '房東姓名'
                         case 'createTime':
@@ -126,6 +124,11 @@
                             return '總金額'
                         case 'statusType':
                             return '交易狀況'
+                        case 'checkIn':
+                            return '入住日期'
+                        case 'checkOut':
+                            return '退房日期'
+
                     }
                 },
                 update(transactionStatusId) {
