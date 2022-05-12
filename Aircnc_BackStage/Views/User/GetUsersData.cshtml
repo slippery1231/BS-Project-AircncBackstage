@@ -27,11 +27,6 @@
                  :per-page="perPage" :current-page="currentPage"
                  :filter="filter" :filter-included-fields="filterOn" v-on:filtered="onFiltered">
             
-            <!-- 選擇checkbox -->
-            @*<template #cell(#)="row">
-                <input type="checkbox" v-for="(item,index) in row.item"  :value="index" v-model="checkedRows">
-            </template>*@
-
             <!-- 詳細按鈕 -->
             <template #cell(Detail)="row">
                 <b-button v-on:click="row.toggleDetails" class="detail-btn">詳細</b-button>
