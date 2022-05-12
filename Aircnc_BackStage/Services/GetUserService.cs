@@ -1,6 +1,7 @@
 ﻿using Aircnc_BackStage.Models;
 using Aircnc_BackStage.Models.Dtos;
 using AircncFrontStage.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,7 @@ namespace Aircnc_BackStage.Services
             });
         }
 
+        [HttpPost]
         public void UpdateAccountStatus(int userId)
         {
             var toBeUpdate = _dBRepository.GetEntityById<User>(userId);

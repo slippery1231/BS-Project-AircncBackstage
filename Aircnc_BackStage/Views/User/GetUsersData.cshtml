@@ -39,7 +39,7 @@
 
             <!--刪除-->
             <template #cell(Delete)="row">
-                <b-button v-on:click="deleteAccount" class="btn-danger">停用</b-button>
+                <b-button :disabled="checkDelete(row.item.isDelete)" v-on:click="deleteAccount(row.item.userId)" class="btn-danger">停用</b-button>
             </template>
 
             <!-- 查看詳情的card -->
@@ -106,6 +106,7 @@
                         .then(jsondata => {
                             console.log(jsondata)
                             this.userList = jsondata
+                            console.log(this.userList)
                         })
                 },
                 onFiltered(filteredItems) {
@@ -141,21 +142,26 @@
                             return '信箱驗證'
                     }
                 },
-                deleteAccount() {
+                deleteAccount(userId) {
+                    console.log(userId)
                     alert('確定要停用該帳號?')
                     fetch('/api/GetUserData/UpdateAccountStatus', {
                         headers: {
                             'Content-type': 'application/json',
                             'Authorization': GenCurrentAuthBarerFormat(),
                         },
-                        method: 'Get',
-
+                        body: JSON.stringify(userId),
+                        method: 'Post',
                     })
                         .then(response => response.json())
                         .then(jsondata => {
                             console.log(jsondata)
-
                         })
+                    window.location.reload() //讓畫面刷新
+                },
+                checkDelete(msg) {
+                    if (msg == '已刪除帳號') return true
+                    else return false
                 }
             },
             created() {
