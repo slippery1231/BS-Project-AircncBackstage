@@ -26,14 +26,15 @@
                  label-sort-asc="" label-sort-desc="" label-sort-clear=""
                  :per-page="perPage" :current-page="currentPage"
                  :filter="filter" :filter-included-fields="filterOn" v-on:filtered="onFiltered">
-            
-            <!-- 詳細按鈕 -->
+
+
+            <!--詳細-->
             <template #cell(Detail)="row">
                 <b-button v-on:click="row.toggleDetails" class="detail-btn">詳細</b-button>
             </template>
 
-            <!--刪除-->
-            <template #cell(Delete)="row">
+            <!--停用帳號-->
+            <template #cell(Terminate)="row">
                 <b-button :disabled="checkDelete(row.item.isDelete)" v-on:click="deleteAccount(row.item.userId)" class="btn-danger">停用</b-button>
             </template>
 
@@ -41,7 +42,19 @@
             <template #row-details="row">
                 <b-card>
                     <ul>
-                        <li v-for="(value,key) in row.item" :key="key">{{toChinese(key) }} : {{value}}</li>
+                        @*<li v-if="key=='_showDetails'"  v-for="(value,key) in row.item" :key="key">{{toChinese(key) }} : {{value}}</li>*@
+                        <li>會員編號:{{row.item.userId}}</li>
+                        <li>會員名稱:{{row.item.name}}</li>
+                        <li>電子郵件:{{row.item.email}}</li>
+                        <li>地址:{{row.item.address}}</li>
+                        <li>生日:{{row.item.birthday}}</li>
+                        <li>性別:{{row.item.gender}}</li>
+                        <li>緊急連絡人:{{row.item.emergencyContactName}}</li>
+                        <li>緊急連絡人電話:{{row.item.emergencyContactPhone}}</li>
+                        <li>帳號創建時間:{{row.item.createTime}}</li>
+                        <li>帳號使用狀況:{{row.item.isDelete}}</li>
+                        @*<li>信箱驗證:{{row.item.mailIsVerify'}}</li>*@
+                        <li hidden>{{row.item._showDetails}}</li>
                     </ul>
                 </b-card>
             </template>
@@ -77,16 +90,15 @@
                     { key: 'userId', label: '會員編號', sortable: true },
                     { key: 'name', label: '會員名稱' },
                     { key: 'email', label: '電子郵件' },
-                    { key: 'createTime', label: '創建時間', sortable:true },
-                    { key: 'Detail', label: '查看詳情' },
-                    { key: 'Delete', label: '停用帳號' }
+                    { key: 'createTime', label: '創建時間', sortable: true },
+                    { key: 'Detail', label: '' },
+                    { key: 'Terminate', label: '' },
                 ],
                 userList: [],
                 perPage: 10,
                 currentPage: 1,
                 filter: null,
                 filterOn: [],
-
             },
             methods: {
                 getUsers() {
@@ -109,34 +121,34 @@
                     this.totalRows = filteredItems.length
                     this.currentPage = 1
                 },
-                toChinese(key) {
-                    switch (key) {
-                        case 'userId':
-                            return '會員編號'
-                        case 'name':
-                            return '會員名稱'
-                        case 'email':
-                            return '電子郵件'
-                        case 'phone':
-                            return '電話'
-                        case 'address':
-                            return '地址'
-                        case 'birthday':
-                            return '生日'
-                        case 'gender':
-                            return '性別'
-                        case 'emergencyContactName':
-                            return '緊急聯絡人'
-                        case 'emergencyContactPhone':
-                            return '緊急連絡人電話'
-                        case 'createTime':
-                            return '創建時間'
-                        case 'isDelete':
-                            return '帳號使用狀況'
-                        case 'mailIsVerify':
-                            return '信箱驗證'
-                    }
-                },
+                //toChinese(key) {
+                //    switch (key) {
+                //        case 'userId':
+                //            return '會員編號'
+                //        case 'name':
+                //            return '會員名稱'
+                //        case 'email':
+                //            return '電子郵件'
+                //        case 'phone':
+                //            return '電話'
+                //        case 'address':
+                //            return '地址'
+                //        case 'birthday':
+                //            return '生日'
+                //        case 'gender':
+                //            return '性別'
+                //        case 'emergencyContactName':
+                //            return '緊急聯絡人'
+                //        case 'emergencyContactPhone':
+                //            return '緊急連絡人電話'
+                //        case 'createTime':
+                //            return '創建時間'
+                //        case 'isDelete':
+                //            return '帳號使用狀況'
+                //        case 'mailIsVerify':
+                //            return '信箱驗證'
+                //    }
+                //},
                 deleteAccount(userId) {
                     console.log(userId)
                     alert('確定要停用該帳號?')
@@ -151,13 +163,13 @@
                         .then(response => response.json())
                         .then(jsondata => {
                             console.log(jsondata)
+                            window.location.reload() //讓畫面刷新
                         })
-                    window.location.reload() //讓畫面刷新
                 },
                 checkDelete(msg) {
-                    if (msg == '已刪除帳號') return true
+                    if (msg == '已停用帳號') return true
                     else return false
-                }
+                },
             },
             created() {
                 this.getUsers()

@@ -42,7 +42,17 @@
             <template #row-details="row">
                 <b-card>
                     <ul>
-                        <li v-for="(value,key) in row.item" :key="key">{{toChinese(key) }} : {{value}}</li>
+                        @*<li v-for="(value,key) in row.item" :key="key">{{toChinese(key) }} : {{value}}</li>*@
+                        <li>交易編號:{{row.item.transactionStatusId}}</li>
+                        <li>下訂時間:{{row.item.createTime}}</li>
+                        <li>房東會員編號:{{row.item.userId}}</li>
+                        <li>房東姓名:{{row.item.name}}</li>
+                        <li>入住時間:{{row.item.checkIn}}</li>
+                        <li>退房時間:{{row.item.checkOut}}</li>
+                        <li>總金額:{{row.item.totalAmount}}</li>
+                        <li>交易狀況:{{row.item.statusType}}</li>
+                        <li hidden>{{row.item._showDetails}}</li>
+
                     </ul>
                 </b-card>
             </template>
@@ -110,27 +120,27 @@
                     this.totalRows = filteredItems.length
                     this.currentPage = 1
                 },
-                toChinese(key) {
-                    switch (key) {
-                        case 'transactionStatusId':
-                            return '交易編號'
-                        case 'userId':
-                            return '房東會員編號'
-                        case 'name':
-                            return '房東姓名'
-                        case 'createTime':
-                            return '下訂時間'
-                        case 'totalAmount':
-                            return '總金額'
-                        case 'statusType':
-                            return '交易狀況'
-                        case 'checkIn':
-                            return '入住日期'
-                        case 'checkOut':
-                            return '退房日期'
+                //toChinese(key) {
+                //    switch (key) {
+                //        case 'transactionStatusId':
+                //            return '交易編號'
+                //        case 'userId':
+                //            return '房東會員編號'
+                //        case 'name':
+                //            return '房東姓名'
+                //        case 'createTime':
+                //            return '下訂時間'
+                //        case 'totalAmount':
+                //            return '總金額'
+                //        case 'statusType':
+                //            return '交易狀況'
+                //        case 'checkIn':
+                //            return '入住日期'
+                //        case 'checkOut':
+                //            return '退房日期'
 
-                    }
-                },
+                //    }
+                //},
                 update(transactionStatusId) {
                     console.log(transactionStatusId)
                     alert('確定要對該交易撥款?')
@@ -146,8 +156,8 @@
                         .then(jsondata => {
                             //console.log(jsondata)
                             this.dataList = jsondata
+                            window.location.reload()
                         })
-                    window.location.reload()
                 },
                 checkUpdated(msg) {
                     if (msg == '已完成撥款') {
