@@ -30,7 +30,7 @@ namespace Aircnc_BackStage.Services
                 EmergencyContactName = x.EmergencyContactName == null? "未填寫":x.EmergencyContactName,
                 EmergencyContactPhone = x.EmergencyContactPhone == null ? "未填寫" : x.EmergencyContactPhone,
                 CreateTime = x.CreateTime.ToString("yyyy/MM/dd HH:mm:ss"),
-                IsDelete  = x.IsDelete == true? "已刪除帳號":"帳號使用中",
+                IsDelete  = x.IsDelete == true? "已停用帳號":"帳號使用中",
                 MailIsVerify = x.MailIsVerify ==true? "已驗證":"未驗證"
             });
         }
