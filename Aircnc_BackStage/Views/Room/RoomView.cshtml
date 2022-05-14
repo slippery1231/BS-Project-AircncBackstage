@@ -47,7 +47,7 @@
 
             <!--刪除-->
             <template #cell(Delete)="row">
-                <b-button :disabled="checkDelete(row.item.status)" v-on:click="deleteAccount(row.item.roomId)" class="btn-danger">停用</b-button>
+                <b-button :disabled="checkDelete(row.item.status)" v-on:click="deleteAccount(row.item.roomId)" class="btn-danger">下架</b-button>
             </template>
 
             <!-- 查看詳情的card -->
