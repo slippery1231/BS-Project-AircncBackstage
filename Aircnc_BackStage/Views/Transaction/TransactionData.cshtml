@@ -18,15 +18,30 @@
                     </b-input-group>
                 </b-form-group>
 
+                <b-form-group v-model="sortDirection"
+                                label-cols-sm="3"
+                                label-align-sm="right"
+                                label-size="sm"
+                                class="mb-0"
+                                v-slot="{ ariaDescribedby }">
+                    <b-form-checkbox-group v-model="filterOn"
+                                            :aria-describedby="ariaDescribedby"
+                                            class="mt-1">
+                        <b-form-checkbox value="checkOut">訂單完成日期</b-form-checkbox>
+                        <b-form-checkbox value="statusType">交易狀態</b-form-checkbox>
+                    </b-form-checkbox-group>
+                </b-form-group>
+
             </div>
 
         </div>
     </div>
     <div class="card mb-4">
-        <b-table striped hover id="table" :fields="fields" :items="dataList"
+        <b-table id="my-table" striped hover :fields="fields" :items="dataList"
                  label-sort-asc="" label-sort-desc="" label-sort-clear=""
                  :per-page="perPage" :current-page="currentPage"
-                 :filter="filter" :filter-included-fields="filterOn" v-on:filtered="onFiltered">
+                 :filter="filter" :filter-included-fields="filterOn" v-on:filtered="onFiltered" 
+                 >
 
             <!-- 詳細按鈕 -->
             <template #cell(Detail)="row">
@@ -36,6 +51,11 @@
             <!--撥款-->
             <template #cell(Fund)="row">
                 <b-button class="btn-danger" v-on:click="update(row.item.transactionStatusId)" :disabled="checkUpdated(row.item.statusType)">撥款</b-button>
+            </template>
+
+            <!--顯示撥款完成與否-->
+            <template #cell(Done)="row">
+                <span>{{row.item.statusType}}</span>
             </template>
 
             <!-- 查看詳情的card -->
@@ -56,16 +76,14 @@
                     </ul>
                 </b-card>
             </template>
-
         </b-table>
 
         <!-- 分頁功能 -->
         <div class="mt-3">
-            <b-pagination v-model="currentPage" :total-rows="rows" align="center" :per-page="perPage" aria-controls="table">
+            <b-pagination v-model="currentPage" :total-rows="totalRows" align="center" :per-page="perPage" aria-controls="my-table">
             </b-pagination>
         </div>
     </div>
-
 </div>
 <!-- End of Main Content -->
 
@@ -86,19 +104,20 @@
             data: {
                 fields: [
                     { key: 'transactionStatusId', label: '交易編號', sortable: true },
-                    //{ key: 'orderId', label: '訂單編號' },
                     { key: 'userId', label: '房東會員編號' ,sortable:true},
                     { key: 'name', label: '房東姓名' },
-                    { key: 'createTime', label: '下訂時間', sortable:true },
-                    { key: 'Detail', label: '查看詳情' },
-                    { key: 'Fund', label: '撥款' }
+                    { key: 'createTime', label: '下訂時間', sortable: true, sortByFormatted: true, filterByFormatted: true},
+                    { key: 'Detail', label: '' },
+                    { key: 'Fund', label: '' },
+                    { key: 'Done', label: '', sortByFormatted: true, filterByFormatted: true}
                 ],
                 dataList: [],
+                //totalRows:1,
                 perPage: 10,
                 currentPage: 1,
                 filter: null,
                 filterOn: [],
-
+                sortDirection: 'asc',
             },
             methods: {
                 getData() {
@@ -173,11 +192,10 @@
                 this.getData()
             },
             computed: {
-                rows() {
-                    return this.dataList.length
+                totalRows() {
+                    this.totalRows = this.dataList.length
                 }
-            }
-
+            },
         })
 
     </script>
