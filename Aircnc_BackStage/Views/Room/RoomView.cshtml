@@ -169,8 +169,8 @@
                         .then(response => response.json())
                         .then(jsondata => {
                             console.log(jsondata)
-                            //console.log(this)
-                            window.location.reload() //讓畫面刷新
+                            //window.location.reload() //讓畫面刷新
+                            this.getData()
                             //this.reload()
                         })
                 },

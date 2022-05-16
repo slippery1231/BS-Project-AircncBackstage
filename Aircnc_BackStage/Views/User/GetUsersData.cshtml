@@ -163,7 +163,8 @@
                         .then(response => response.json())
                         .then(jsondata => {
                             console.log(jsondata)
-                            window.location.reload() //讓畫面刷新
+                            //window.location.reload() //讓畫面刷新
+                            this.getUsers()
                         })
                 },
                 checkDelete(msg) {

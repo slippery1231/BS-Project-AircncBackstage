@@ -156,7 +156,8 @@
                         .then(jsondata => {
                             //console.log(jsondata)
                             this.dataList = jsondata
-                            window.location.reload()
+                            //window.location.reload()
+                            this.getData()
                         })
                 },
                 checkUpdated(msg) {
