@@ -117,7 +117,9 @@
                 currentPage: 1,
                 filter: null,
                 filterOn: [],
+                isFiltering:false,
                 sortDirection: 'asc',
+                totalRows:1
             },
             methods: {
                 getData() {
@@ -132,6 +134,8 @@
                         .then(jsondata => {
                             console.log(jsondata)
                             this.dataList = jsondata
+                            this.totalRows = this.dataList.length
+                            this.currentPage = 1
                         })
                 },
                 onFiltered(filteredItems) {
@@ -192,10 +196,26 @@
                 this.getData()
             },
             computed: {
-                totalRows() {
-                    this.totalRows = this.dataList.length
-                }
+
             },
+            watch: {
+                filter: function() {
+                    if(this.filter != null)
+                    {
+                        this.isFiltering =  true
+                    }
+                    else this.isFiltering = false
+                },
+
+                isFiltering: function () {
+                    if (this.isFiltering) {
+                        this.totalRows = this.filterOn.length
+                    }
+                    else {
+                        this.totalRows = this.dataList.length
+                    }
+                }
+            }
         })
 
     </script>
