@@ -95,10 +95,12 @@
                     { key: 'Terminate', label: '' },
                 ],
                 userList: [],
+                filterOn: [],
+                totalRows:1,
                 perPage: 10,
                 currentPage: 1,
                 filter: null,
-                filterOn: [],
+                isFiltering: false, //是否在過濾
             },
             methods: {
                 getUsers() {
@@ -114,6 +116,9 @@
                             console.log(jsondata)
                             this.userList = jsondata
                             console.log(this.userList)
+                            this.totalRows = this.userList.length
+                            this.currentPage = 1
+
                         })
                 },
                 onFiltered(filteredItems) {
@@ -175,17 +180,24 @@
             created() {
                 this.getUsers()
             },
-            mounted() {
-                // Set the initial number of items
-                this.totalRows = this.userList.length
-            },
+            watch: {
+                filter: function () {
+                    if (this.filter != null) {
+                        this.isFiltering = true
+                    }
+                    else this.isFiltering = false
+                },
 
-            //computed: {
-            //    rows() {
-            //        return this.userList.length
-            //    }
-            //}
-            
+                isFiltering: function () {
+                    if (this.isFiltering) {
+                        this.totalRows = this.filterOn.length
+                    }
+                    else {
+                        this.totalRows = this.userList.length
+                    }
+                }
+            }
+
         })
 
     </script>

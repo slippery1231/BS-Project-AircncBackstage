@@ -111,15 +111,14 @@
                     { key: 'Fund', label: '' },
                     { key: 'Done', label: '', sortByFormatted: true, filterByFormatted: true}
                 ],
-                dataList: [],
-                //totalRows:1,
+                dataList: [], //放全部資料
+                filterOn: [],//放過濾資料
+                totalRows:1,
                 perPage: 10,
                 currentPage: 1,
                 filter: null,
-                filterOn: [],
-                isFiltering:false,
+                isFiltering:false, //是否在過濾
                 sortDirection: 'asc',
-                totalRows:1
             },
             methods: {
                 getData() {
@@ -194,9 +193,6 @@
             },
             created() {
                 this.getData()
-            },
-            computed: {
-
             },
             watch: {
                 filter: function() {
