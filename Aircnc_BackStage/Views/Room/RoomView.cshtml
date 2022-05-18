@@ -2,19 +2,7 @@
 
 
 <!-- Begin Page Content -->
-@*<template>
-    <div id="page">
-        <Toast />
-        <div class="layout-main">
-            <router-view v-if="isRouterAlive" />
-        </div>
-    </div>
-</template>*@
-
 <div id="app" style="height: 100%;">
-    @*<router-view v-if="isRouterAlive" />*@
-    <router-view v-if="isRouterAlive"></router-view>
-
     <div class="my-2">
         <div class="row">
             <div class="col-10">
@@ -49,6 +37,12 @@
             <template #cell(Delete)="row">
                 <b-button :disabled="checkDelete(row.item.status)" v-on:click="deleteAccount(row.item.roomId)" class="btn-danger">下架</b-button>
             </template>
+
+            <!--備註-->
+            <template #cell(Note)="row">
+                <span>{{row.item.status}}</span>
+            </template>
+
 
             <!-- 查看詳情的card -->
             <template #row-details="row">
@@ -92,9 +86,7 @@
 
 @section endJS{
     <script type="module">
-        import RoomTemplate from '/js/RoomTemplate.js'
         let app = new Vue({
-            inject:['reload'],
             el: '#app',
             data: {
                 fields: [
@@ -106,14 +98,16 @@
                     { key: 'status', label: '房源狀態' },
                     { key: 'createTime', label: '創建時間', sortable:true },
                     { key: 'Detail', label: '' },
-                    { key: 'Delete', label: '' }
+                    { key: 'Delete', label: '' },
+                    { key: 'Note', label: '' }
                 ],
                 roomList: [],
+                filterOn: [],
+                totalRows:1,
                 perPage: 10,
                 currentPage: 1,
                 filter: null,
-                filterOn: [],
-                isRouterAlive: true,
+                isFiltering: false, //是否在過濾
 
             },
             methods: {
@@ -130,6 +124,8 @@
                             console.log(jsondata)
                             this.roomList = jsondata
                             console.log(this.roomList)
+                            this.totalRows = this.roomList.length
+                            this.currentPage = 1
                         })
                 },
                 onFiltered(filteredItems) {
@@ -181,11 +177,24 @@
             created() {
                 this.getData()
             },
-            computed: {
-                totalRows() {
-                    this.totalRows = this.roomList.length
+            watch: {
+                filter: function () {
+                    if (this.filter != null) {
+                        this.isFiltering = true
+                    }
+                    else this.isFiltering = false
+                },
+
+                isFiltering: function () {
+                    if (this.isFiltering) {
+                        this.totalRows = this.filterOn.length
+                    }
+                    else {
+                        this.totalRows = this.roomList.length
+                    }
                 }
             }
+
         })
 
     </script>

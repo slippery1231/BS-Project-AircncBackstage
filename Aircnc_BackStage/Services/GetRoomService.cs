@@ -18,7 +18,7 @@ namespace Aircnc_BackStage.Services
 
         public IEnumerable<RoomDto> GetAllRoom()
         {
-            return _dbRepository.GetAll<Room>().Select(x => new RoomDto
+            return _dbRepository.GetAll<Room>().OrderByDescending(x=>x.CreateTime).Select(x => new RoomDto
             {
                 RoomId = x.RoomId,
                 UserName = _dbRepository.GetAll<User>().FirstOrDefault(u=>u.UserId ==x.User.UserId).Name,
